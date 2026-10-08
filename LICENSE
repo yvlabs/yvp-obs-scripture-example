@@ -19,9 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-This license covers the code and documentation in this repository only. Bible
-text, publisher attribution, YouVersion fonts and Platform CSS are loaded at
-runtime under your own YouVersion Platform agreement and are not licensed here.
-The screenshot in docs/ shows the Berean Standard Bible, which is in the public
-domain.

@@ -135,4 +135,5 @@ passage. What was verified, and with which versions, is in
 
 The code is [MIT](LICENSE). It conveys no rights to Bible text, publisher
 attribution, YouVersion fonts or Platform CSS, which you load at runtime under
-your own Platform agreement.
+your own Platform agreement. The screenshot in `docs/` shows the Berean Standard
+Bible, which is in the public domain.
