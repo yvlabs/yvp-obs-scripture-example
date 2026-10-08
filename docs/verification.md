@@ -5,10 +5,11 @@ or keys.
 
 | Check | Environment | Result |
 |---|---|---|
-| `node --test *.test.*` | Node 22, simulated DOM | 30/30 |
+| `node --test *.test.*` | Node 22, simulated DOM, control server over HTTP | 37/37 |
 | `browser-acceptance.mjs` | Headless Google Chrome, loopback server | 49/49 |
 | `sdk-check` `npm test` | `@youversion/platform-core` 2.15.0, `jsdom` 28.1.0, stubbed fetch | 3/3 |
 | `sdk-check/live-acceptance.mjs` | Real Platform, version 3034 (BSB), `JHN.3.16`, headless Chrome | 23/23 |
+| `sdk-check/control-acceptance.mjs` | Real Platform, control server, `live.html#control` in headless Chrome | 11/11 |
 | `obs-acceptance.mjs` | OBS 32.2.2, obs-websocket 5.7.4, macOS 26.6.2, Apple silicon | 12/12 |
 
 **Browser (49 checks).** Both pages at 1280×720, 1920×1080, 640×360 (the viewport
@@ -41,6 +42,19 @@ Browser Source:
 - the live passage renders with a transparent surround.
 
 Results were the same with browser hardware acceleration on and off.
+
+**Control (11 checks).** Real SDK behind the control server:
+
+- the overlay connects, starts hidden, and shows "John 3:16" when asked;
+- it switches to "Psalm 23:1" without reloading, and the HTML matches the SDK's
+  each time;
+- a whole long chapter (Psalm 119) is reported as refused, and nothing is shown;
+- an unknown book is rejected before any Platform call;
+- hide clears it;
+- no page errors occur, and there is exactly one Platform load per accepted change.
+
+Also verified by hand in OBS 32.2.2: John 3:16 → Psalm 23:1 → Romans 8:38-39
+switched live, and each change was reported "On screen".
 
 **Defects these checks found and fixed during development:**
 

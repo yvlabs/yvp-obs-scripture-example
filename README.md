@@ -59,29 +59,44 @@ it will not load `file://` URLs typed into the URL field.
 
 ## Show a real passage
 
+<img src="docs/control-page.png" alt="The control page: Romans 8:38-39 on air and on screen, a passage box, Show and Hide buttons, and recent passages" width="420" align="right">
+
 1. Install the pinned SDK once: `cd sdk-check && npm ci`.
-2. Choose the passage: edit `data-version-id` and `data-passage-id` on `<body>` in
-   `live.html` (for example `3034` and `JHN.3.16`). Use a version your app can read.
-3. Start the live server, which fetches that one passage with your key:
+2. Start the live server with your key:
 
    ```bash
    cd sdk-check
    YVP_APP_KEY=<your app key> node serve-live.mjs 8790
    ```
 
-4. In OBS, add a Browser source with URL `http://127.0.0.1:8790/live.html#show` at
-   your canvas size. Press **1** in Interact to show it again, **Esc** to hide.
+   It prints two addresses.
+3. In OBS, add a Browser source with the URL `http://127.0.0.1:8790/live.html#control`
+   at your canvas size.
+4. Open the **control page**, `http://127.0.0.1:8790/`, in your normal browser (not in
+   OBS). Type a passage such as `Psalm 23:1`, `1 Cor 13:4-7` or `ROM.8.28`, and
+   press **Show**. The overlay changes within a second. **Hide** clears it, and
+   **Recent** brings back an earlier passage with one click.
 
-The server fetches the passage once. The browser calls no Platform APIs, but it
-does load the SDK's font stylesheet, whose URL contains your App Key (see
-[the operator guide](docs/operator-guide.md)).
+The control page reports what viewers actually see: **On screen**, **Too long for
+the canvas** (nothing is shown; pick a shorter passage), or **No overlay
+connected**. If a passage can't be loaded, the current one stays up and the page
+says why. The server starts with the passage named on `live.html`'s `<body>`, and
+caps Platform requests at one per second and 120 per hour.
+
+The browser calls no Platform APIs itself, but it does load the SDK's font
+stylesheet, whose URL contains your App Key (see
+[the operator guide](docs/operator-guide.md)). The control server listens only on
+this computer and refuses requests from other websites.
+
+For a single fixed passage without a control page, use `live.html#show`.
 
 ## How it works
 
 ```text
-your server ──SDK──▶ YouVersion Platform        (passage HTML, attribution, stylesheets)
-     │
-     └─ display.json ──▶ live.html in OBS ──▶ validate ──▶ load CSS/fonts ──▶ measure ──▶ show or refuse
+control page ──Show "Psalm 23:1"──▶ control server ──SDK──▶ YouVersion Platform
+      ▲                                  │                 (passage HTML, attribution, stylesheets)
+      │                                  │ change event
+  "On screen" ◀── status ── live.html in OBS ──▶ validate ──▶ load CSS/fonts ──▶ measure ──▶ show or refuse
 ```
 
 | File | Responsibility |
@@ -92,9 +107,12 @@ your server ──SDK──▶ YouVersion Platform        (passage HTML, attribu
 | `view.js` | Inserts the SDK's HTML and attributes, loads its stylesheets, measures hidden, reveals only if it fits on screen |
 | `mount.mjs` | Browser wiring: exact stylesheet origins, hide on resize/visibility/font changes, disposal |
 | `overlay.css` | Panel layout; host fixture styles sit in a low-priority CSS layer so the SDK's Bible CSS always wins |
-| `output.html` / `live.html` | OBS pages: synthetic fixtures / live passage, with reviewed CSPs |
+| `output.html` / `live.html` | OBS pages: synthetic fixtures / live passage (`#control` follows the control page), with reviewed CSPs |
+| `control-server.mjs` | Loopback control server: passage on air, Server-Sent Events to overlays, request caps, cross-site and host guards |
+| `control.html` / `control.js` | Operator control page: type a reference, Show/Hide, recent passages, live on-screen status |
+| `reference.js` | Everyday references (“1 Cor 13:4-7”) to USFM passage IDs; refuses anything ambiguous |
 | `demo.js` / `index.html` | Synthetic, clearly labelled fixtures and the inspection page |
-| `sdk-check/` | Pinned `@youversion/platform-core`; offline compatibility tests, live acceptance, `serve-live.mjs` |
+| `sdk-check/` | Pinned `@youversion/platform-core`; offline compatibility tests, live and control acceptance, `serve-live.mjs` |
 
 ## Tests
 
@@ -108,6 +126,7 @@ With a key and OBS running:
 
 ```bash
 cd sdk-check && YVP_APP_KEY=… node live-acceptance.mjs        # real passage in Chrome
+cd sdk-check && YVP_APP_KEY=… node control-acceptance.mjs     # show, switch, refuse, hide via the control server
 OBS_WS_PASSWORD=… YVP_APP_KEY=… node obs-acceptance.mjs       # real OBS, via obs-websocket
 ```
 
@@ -127,6 +146,9 @@ passage. What was verified, and with which versions, is in
 - **If every Browser Source is blank** (even other websites), restart OBS with at
   least one Browser Source saved in a scene. On macOS we saw sources created over
   obs-websocket stay blank when none existed at launch.
+- **The control page is for this computer only.** The server listens on
+  `127.0.0.1` and refuses requests from other websites and host names. Anyone using
+  this computer can change what is on air, so don't leave it running unattended.
 - **Rights are your responsibility.** A successful API response does not settle
   whether you may stream, record or archive a translation. Check the Platform
   terms and the publisher's license for your use.

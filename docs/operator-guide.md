@@ -39,8 +39,9 @@ read the [Display Bible HTML guide](https://developers.youversion.com/guides/dis
   Version metadata can succeed when passage access is denied.
 - Verify Go Live status and current quotas before production. Each display makes
   two API calls (passage and version), plus two stylesheet loads and their fonts.
-  The adapter's call caps (one per second, 30 per hour) are local safety limits,
-  not Platform quotas.
+  The control server allows one passage load per second and 120 per hour; the
+  adapter alone defaults to 30 per hour. These are local safety limits, not
+  Platform quotas.
 - SDK 2.15.0 aborts each request after `timeout` (default 10 seconds) and does not
   retry or honour `Retry-After`. This adapter adds no retries and no fallback
   version.

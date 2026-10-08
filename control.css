@@ -1,0 +1,25 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #101923; color: #f0ede6; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; }
+main { max-width: 520px; margin: 0 auto; padding: 32px 20px; }
+h1 { font: 500 26px/1.2 Georgia, serif; margin: 0 0 20px; }
+.label { margin: 0 0 6px; color: #83d4c7; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.air { padding: 16px; border: 1px solid #3a4f5a; border-radius: 10px; margin-bottom: 20px; }
+.on-air { margin: 0 0 10px; font-size: 20px; }
+.chip { display: inline-block; margin: 0; padding: 4px 10px; border-radius: 999px; font-size: 13px; background: #253642; color: #b9c5cd; }
+.chip[data-state="visible"] { background: #1d4d3f; color: #c9f2e3; }
+.chip[data-state="refused"], .chip[data-state="unavailable"] { background: #5a2a26; color: #ffd9d3; }
+form { display: grid; grid-template-columns: 1fr 96px; gap: 6px 10px; margin-bottom: 20px; }
+form label { font-size: 13px; color: #b9c5cd; }
+form label[for="version"] { grid-column: 2; grid-row: 1; }
+#version { grid-column: 2; grid-row: 2; }
+input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #647c88; background: #182630; color: inherit; font: inherit; font-size: 16px; }
+.actions { grid-column: 1 / -1; display: flex; gap: 10px; margin-top: 6px; }
+button { padding: 10px 18px; border-radius: 8px; border: 1px solid #83d4c7; background: #83d4c7; color: #0d1c22; font: inherit; font-weight: 600; cursor: pointer; }
+button.secondary { background: #253642; color: #f0ede6; border-color: #647c88; font-weight: 500; }
+button:focus-visible, input:focus-visible { outline: 3px solid #a1ecdf; outline-offset: 2px; }
+form[aria-busy] button { opacity: .6; }
+.message { grid-column: 1 / -1; min-height: 1.4em; margin: 0; color: #ffb4a8; font-size: 14px; }
+.recent { display: flex; flex-wrap: wrap; gap: 8px; min-height: 40px; }
+.note { margin-top: 24px; color: #9caeb7; font-size: 13px; line-height: 1.5; }
+code { font-size: 12px; }
