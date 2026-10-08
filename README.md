@@ -88,6 +88,12 @@ stylesheet, whose URL contains your App Key (see
 [the operator guide](docs/operator-guide.md)). The control server listens only on
 this computer and refuses requests from other websites.
 
+![OBS with the overlay showing Psalm 23:1 over a captured web page, next to the control page in a browser reporting it on screen](docs/obs-with-control-page.png)
+
+*The overlay running for real: OBS (left) shows Psalm 23:1 over a screen capture,
+and the control page (right) reports it **On screen**. Personal browser details in
+the capture are pixelated.*
+
 For a single fixed passage without a control page, use `live.html#show`.
 
 ## How it works
