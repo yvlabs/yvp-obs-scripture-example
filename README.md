@@ -1,4 +1,4 @@
-# Scripture overlay for OBS: a YouVersion Platform example
+# Scripture overlay for OBS and beyond: a YouVersion Platform example
 
 ![OBS program output at 1920×1080: a passage overlay with its credit across the lower third of a dark backdrop](docs/obs-live-1080p.png)
 
@@ -6,10 +6,12 @@
 for a camera feed. The overlay is this repository's `live.html`, rendering John 3:16
 in the Berean Standard Bible (public domain) exactly as the Platform supplied it.*
 
-A small, dependency-free web page you add to [OBS Studio](https://obsproject.com)
-as a **Browser Source**. It shows an operator-chosen Bible passage from the
-[YouVersion Platform](https://platform.youversion.com) on a transparent lower third,
-with the publisher's attribution, and gets out of the way when it should:
+A small, dependency-free web page that shows an operator-chosen Bible passage from
+the [YouVersion Platform](https://platform.youversion.com) on a transparent lower
+third, with the publisher's attribution. It's built and tested as an
+[OBS Studio](https://obsproject.com) **Browser Source**, but it's an ordinary web
+page: anything that can show a web page, ideally with transparency, can use it (see
+[Beyond OBS](#beyond-obs)). It gets out of the way when it should:
 
 - **It never cuts text or credit off.** If the passage and its attribution do not
   fit completely inside the canvas, nothing is shown.
@@ -32,6 +34,24 @@ A broadcast overlay breaks several assumptions a normal web reader can make:
 | A stale request just finishes late | A late result would pop onto a live stream | One display generation; hide, timeout and newer selections cancel older ones |
 | Fonts and CSS are the host's choice | The Platform specifies Bible CSS and a typeface | Loads the SDK's stylesheets; host styles never override them |
 | Errors can be shown | Raw errors on stream are a leak | Fixed, content-free status text only |
+
+## Beyond OBS
+
+The overlay is a web page on a transparent background, and the control page drives
+every copy that is open. So it fits anywhere a web page can be layered or shown:
+
+| Where | How | Status |
+|---|---|---|
+| OBS Studio | Browser Source, `live.html#control` | Tested (OBS 32.2.2, macOS) |
+| Other streaming and production tools with a browser or web source | Point the source at the same URL; check that it keeps transparency | Should work; not tested here |
+| A projector or TV in a room | Open `live.html#control` full-screen in any browser | Should work; the background is transparent, so the browser shows its default colour behind the panel |
+| Wall displays and dashboards that embed web pages | Embed the same URL | Should work; not tested here |
+| Your own web app | Reuse `platform-adapter.mjs`, `display-contract.js`, `controller.js` and `view.js` | The core has no OBS dependency |
+
+Wherever it runs, the same rules hold: it shows the whole passage and its credit or
+nothing, and it never changes the text. Size the page to the area people actually
+see. Video-call apps generally can't layer a web page over your camera; share a
+browser window instead.
 
 ## Requirements
 
