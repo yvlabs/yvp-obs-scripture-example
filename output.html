@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Scripture surface lab — synthetic OBS output</title>
+  <link rel="stylesheet" href="overlay.css">
+  <script defer src="display-contract.js"></script>
+  <script defer src="view.js"></script>
+  <script defer src="controller.js"></script>
+  <script defer src="demo.js"></script>
+</head>
+<!-- Browser Source canvas: transparent, no visible controls. Select with keys 1–8
+     through OBS Interact (Esc hides), or start one fixture with #short, #rtl, etc. -->
+<body class="output">
+  <p id="status" class="visually-hidden" role="status" aria-live="polite">Display hidden.</p>
+  <main aria-label="Synthetic overlay output">
+    <section id="panel" aria-label="Display" hidden>
+      <div class="panel-heading"><span>DEMO ONLY · NOT SCRIPTURE</span><span>OPERATOR-SELECTED DISPLAY</span></div>
+      <article id="content" aria-label="Display content"></article>
+      <footer><p id="attribution" dir="auto"></p><p class="platform-credit">Scripture integration powered by YouVersion Platform. Demo shows no Scripture.</p></footer>
+    </section>
+  </main>
+</body>
+</html>

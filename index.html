@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Scripture surface lab — synthetic OBS demo</title>
+  <link rel="stylesheet" href="overlay.css">
+  <script defer src="display-contract.js"></script>
+  <script defer src="view.js"></script>
+  <script defer src="controller.js"></script>
+  <script defer src="demo.js"></script>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">SURFACE LAB / 01</p>
+    <h1>A quiet place for a passage.</h1>
+    <p class="intro">Local display experiment for an OBS Browser Source. All content below is synthetic layout text. No Scripture, credentials, or network requests.</p>
+    <nav aria-label="Demo controls">
+      <button data-case="short">Show demo</button>
+      <button data-case="long">Try overflow</button>
+      <button data-case="missing">Missing attribution</button>
+      <button data-case="failure">Simulate failure</button>
+      <button data-case="slow">Slow load</button>
+      <button data-case="timeout">Try timeout</button>
+      <button data-case="credit">Long credit</button>
+      <button data-case="rtl">RTL fixture</button>
+      <button id="hide">Hide (Esc)</button>
+    </nav>
+    <p id="status" role="status" aria-live="polite">Display hidden.</p>
+  </header>
+  <main aria-label="Synthetic overlay preview">
+    <section id="panel" aria-label="Display preview" hidden>
+      <div class="panel-heading"><span>DEMO ONLY · NOT SCRIPTURE</span><span>OPERATOR-SELECTED DISPLAY</span></div>
+      <article id="content" aria-label="Display content"></article>
+      <footer><p id="attribution" dir="auto"></p><p class="platform-credit">Scripture integration powered by YouVersion Platform. Demo shows no Scripture.</p></footer>
+    </section>
+    <p class="canvas-note">DEVELOPER FIXTURE · NOT SCRIPTURE</p>
+  </main>
+</body>
+</html>

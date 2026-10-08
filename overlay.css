@@ -1,0 +1,49 @@
+/* Declared first, so this layer has the lowest priority: the SDK's Bible CSS
+   (its own layers, loaded later) always wins inside the renderer container. */
+@layer surface-fixture;
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #101923; color: #f0ede6; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 85% 5%, #234649, transparent 55%); }
+header { padding: 32px 5vw 0; max-width: 1000px; }
+.eyebrow { color: #83d4c7; font-size: 12px; font-weight: 750; letter-spacing: .18em; }
+h1 { font: 500 clamp(24px, 3.4vw, 42px)/1.2 Georgia, serif; margin: 10px 0; }
+.intro { color: #b9c5cd; max-width: 680px; font-size: 14px; line-height: 1.5; }
+nav { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+button { background: #253642; color: #f0ede6; border: 1px solid #647c88; border-radius: 8px; padding: 10px 14px; font: inherit; font-size: 13px; cursor: pointer; }
+button:hover { background: #385460; }
+button:focus-visible { outline: 3px solid #a1ecdf; outline-offset: 3px; }
+#status { color: #b9c5cd; font-size: 13px; min-height: 2.8em; max-width: 680px; }
+main { position: relative; height: max(300px, 48vh); margin: 12px 5vw 24px; border: 1px dashed #52636c; border-radius: 14px; }
+#panel { position: absolute; inset: auto 24px 42px; max-height: calc(100% - 68px); overflow: hidden; padding: 24px 28px; border-radius: 10px; border-top: 3px solid #83d4c7; background: #f0ede6; color: #172a35; }
+#panel[hidden] { display: none; }
+#panel.measuring { visibility: hidden; }
+.panel-heading { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; color: #435d65; font: 700 10px/1.5 system-ui, sans-serif; letter-spacing: .08em; }
+/* Only the SDK's documented reader tokens are set on live content. */
+#content { margin: 16px 0; overflow-wrap: anywhere;
+  --yv-reader-font-family: "Untitled Serif", "Source Serif 4", serif;
+  --yv-reader-font-size: clamp(20px, 2.2vw, 32px); --yv-reader-line-height: 1.38; }
+/* Synthetic fixtures only (no Bible CSS loaded); never overrides the SDK. */
+@layer surface-fixture {
+  #content { font: 500 clamp(20px, 2.2vw, 32px)/1.38 Georgia, serif; }
+  #content p { margin: 0; white-space: pre-wrap; }
+  #content a { color: #145761; text-decoration: underline; }
+}
+#panel footer { border-top: 1px solid #b8c2c1; padding-top: 12px; font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; white-space: pre-wrap; }
+.canvas-note { position: absolute; bottom: 10px; left: 24px; right: 24px; margin: 0; font-size: 10px; color: #9caeb7; letter-spacing: .08em; }
+@media (max-width: 520px) { header { padding-top: 20px; } #panel { left: 12px; right: 12px; padding: 18px; } .panel-heading span:last-child { display: none; } }
+
+#attribution { margin: 0; }
+.platform-credit { margin: 8px 0 0; font-size: 12px; }
+#content :focus-visible { outline: 3px solid #145761; outline-offset: 3px; }
+
+/* output.html: the Browser Source canvas. Transparent, whole canvas for the panel. */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Precaution: keep hosts from choosing a dark default backdrop for this page. */
+:root:has(body.output) { background: transparent; color-scheme: normal; }
+body.output { background: transparent; min-height: 0; height: 100vh; overflow: hidden; }
+body.output main { position: fixed; inset: 0; height: auto; margin: 0; border: 0; border-radius: 0; }
+body.output #panel { inset: auto 4vw 5vh; max-height: 90vh; }
+/* A lower third uses the canvas width, not a page measure. The guide documents
+   --yv-reader-max-width, but bible.css (checked 2026-10-07) caps renderer children
+   with --yv-container-lg instead; set both. Width only, never the text. */
+body.output #content { --yv-reader-max-width: none; --yv-container-lg: none; }

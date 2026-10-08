@@ -1,0 +1,25 @@
+name: test
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit tests
+        run: node --test *.test.*
+      - name: SDK compatibility (offline)
+        working-directory: sdk-check
+        run: npm ci && npm test
+      - name: Real-browser acceptance
+        env:
+          CHROME: /usr/bin/google-chrome
+        run: node browser-acceptance.mjs

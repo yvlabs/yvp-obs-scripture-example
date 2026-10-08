@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Reviewed live origins, checked 2026-10-07 against SDK 2.15.0: Bible CSS
+       (cdn.youversion.com), its Google Fonts @import, the Platform font stylesheet
+       (api.youversion.com) and its font files (cdn.youversion.com). The display
+       model comes from this page's own server; the browser makes no API calls. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; connect-src 'self'; style-src 'self' https://cdn.youversion.com https://api.youversion.com https://fonts.googleapis.com; font-src https://cdn.youversion.com https://fonts.gstatic.com; img-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Scripture surface — live OBS output</title>
+  <link rel="stylesheet" href="overlay.css">
+  <script type="module" src="live-host.mjs"></script>
+</head>
+<!-- Browser Source canvas. Key 1 (or #show) shows the configured passage; Esc hides.
+     data-* names the one selection this host may request from its server. -->
+<body class="output" data-version-id="3034" data-passage-id="JHN.3.16">
+  <p id="status" class="visually-hidden" role="status" aria-live="polite">Display hidden.</p>
+  <main aria-label="Passage output">
+    <section id="panel" aria-label="Display" hidden>
+      <article id="content" aria-label="Passage"></article>
+      <footer><p id="attribution" dir="auto"></p><p class="platform-credit">Scripture integration powered by YouVersion Platform.</p></footer>
+    </section>
+  </main>
+</body>
+</html>

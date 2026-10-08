@@ -1,0 +1,13 @@
+{
+  "name": "obs-surface-sdk-check",
+  "private": true,
+  "description": "Offline compatibility check: the pinned official SDK's display model through this example's adapter. Stubbed fetch, synthetic key, no network.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test sdk-compat.test.mjs"
+  },
+  "dependencies": {
+    "@youversion/platform-core": "2.15.0",
+    "jsdom": "28.1.0"
+  }
+}
